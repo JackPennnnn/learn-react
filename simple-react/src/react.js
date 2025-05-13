@@ -1,3 +1,4 @@
+import REACT_ELEMENT_TYPE from './shared/ReactElement'
 // const element = /*#__PURE__*/React.createElement("div", {
 //     class: "xixi",
 //     ref: "123",
@@ -27,7 +28,7 @@ function createElement(type,config = {},children){
         props.children = children
     }
     return {
-        $$typeof:Symbol.for('react.element'),
+        $$typeof:REACT_ELEMENT_TYPE,
         type,
         ref,
         key,
