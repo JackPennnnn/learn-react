@@ -1,4 +1,4 @@
-import REACT_ELEMENT_TYPE from './shared/ReactElement'
+import {REACT_ELEMENT_TYPE} from './shared/ReactSymbols'
 // const element = /*#__PURE__*/React.createElement("div", {
 //     class: "xixi",
 //     ref: "123",
