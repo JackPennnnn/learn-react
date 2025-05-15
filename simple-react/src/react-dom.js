@@ -1,6 +1,5 @@
 import {REACT_ELEMENT_TYPE} from './shared/ReactSymbols'
 function render(VNode,container){
-    console.log(VNode)
     // ...
     mount(VNode,container)
     // ...
@@ -17,7 +16,13 @@ function createDom(VNode){
     // 创建真实DOM
     const {type,props} = VNode
     let dom
-    if(type && VNode.$$typeof === REACT_ELEMENT_TYPE){
+     if(typeof type === 'function' && type.prototype.isReactComponent && VNode.$$typeof === REACT_ELEMENT_TYPE){
+        // 如果是类组件
+        return mountClassComponent(VNode)
+    }else if(typeof type === 'function' && VNode.$$typeof === REACT_ELEMENT_TYPE){
+        // 如果是函数，则代表是组件
+       return mountComponent(VNode)
+    }else if(type && VNode.$$typeof === REACT_ELEMENT_TYPE){
         dom = document.createElement(type)
     }
     // 处理子元素
@@ -69,6 +74,21 @@ function setProps(dom,props = {}){
             dom.setAttribute(key,props[key])
         }
     }
+}
+
+function mountComponent(VNode){
+    const {type,props} = VNode
+    const renderVNode = type(props)
+    if(!renderVNode)return null
+   return createDom(renderVNode)
+}
+
+function mountClassComponent(VNode){
+    const {type,props} = VNode
+    const instance = new type(props)
+    const renderVNode = instance.render()
+    if(!renderVNode)return null
+    return createDom(renderVNode)
 }
 
 

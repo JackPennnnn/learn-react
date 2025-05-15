@@ -1,4 +1,5 @@
 import {REACT_ELEMENT_TYPE} from './shared/ReactSymbols'
+import {Component} from './Component'
 // const element = /*#__PURE__*/React.createElement("div", {
 //     class: "xixi",
 //     ref: "123",
@@ -37,7 +38,8 @@ function createElement(type,config = {},children){
 }
 
 const React = {
-    createElement
+    createElement,
+    Component
 }
 
 export default React
